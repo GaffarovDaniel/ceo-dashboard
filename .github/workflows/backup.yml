@@ -1,0 +1,33 @@
+# ПР №7. Еженедельный бэкап всех материалов в GitHub Releases
+name: Weekly backup
+
+on:
+  schedule:
+    - cron: "0 3 * * 1"       # каждый понедельник в 03:00 UTC (06:00 МСК)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Упаковать материалы в архив
+        run: |
+          STAMP=$(date +'%Y-%m-%d')
+          echo "STAMP=$STAMP" >> $GITHUB_ENV
+          zip -r "backup_$STAMP.zip" data docs excel scripts wiki project README.md
+          sha256sum "backup_$STAMP.zip" > "backup_$STAMP.sha256"
+
+      - name: Опубликовать релиз с архивом
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: backup-${{ env.STAMP }}
+          name: Резервная копия ${{ env.STAMP }}
+          body: Автоматический еженедельный бэкап данных, отчётов и скриптов.
+          files: |
+            backup_${{ env.STAMP }}.zip
+            backup_${{ env.STAMP }}.sha256
