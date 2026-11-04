@@ -5,6 +5,9 @@ on:
   schedule:
     - cron: "0 3 * * 1"       # каждый понедельник в 03:00 UTC (06:00 МСК)
   workflow_dispatch:
+  push:                       # проверочный запуск при изменении настроек бэкапа
+    branches: [main]
+    paths: [".github/workflows/backup.yml"]
 
 permissions:
   contents: write
