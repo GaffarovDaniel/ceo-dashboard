@@ -21,8 +21,8 @@
 
 ## Ссылки
 
-- Дашборд: `https://<логин>.github.io/ceo-dashboard/`
-- Отчёт: `https://<логин>.github.io/ceo-dashboard/report.html`
+- Дашборд: `https://gaffarovdaniel.github.io/ceo-dashboard/`
+- Отчёт: `https://gaffarovdaniel.github.io/ceo-dashboard/report.html`
 
 ## Ключевые показатели
 
